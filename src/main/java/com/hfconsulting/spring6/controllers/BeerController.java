@@ -1,6 +1,7 @@
 package com.hfconsulting.spring6.controllers;
 
 import com.hfconsulting.spring6.model.BeerDTO;
+import com.hfconsulting.spring6.model.BeerStyle;
 import com.hfconsulting.spring6.services.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -55,8 +56,11 @@ public class BeerController {
         return new ResponseEntity(headers, HttpStatus.CREATED);
     }
     @GetMapping(value=BEER_PATH)
-    public List<BeerDTO> listBeers() {
-        return beerService.listBeers();
+    public List<BeerDTO> listBeers(@RequestParam(required = false) String beerName,
+                                   @RequestParam(required=false) BeerStyle beerStyle,
+                                   @RequestParam(required=false) Boolean showInventory) {
+
+        return beerService.listBeers(beerName, beerStyle, showInventory);
     }
     @GetMapping(value = BEER_PATH_ID)
     public BeerDTO getBeerById(@PathVariable UUID beerId) {

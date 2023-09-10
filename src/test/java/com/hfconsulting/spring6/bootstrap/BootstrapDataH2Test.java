@@ -8,23 +8,26 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.context.annotation.Import;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
+@Import(BeerCsvServiceImpl.class)
 class BootstrapDataH2Test {
     @Autowired
     BeerRepository beerRepository;
     @Autowired
     CustomerRepository customerRepository;
 
+    @Autowired
     BeerCsvService csvService;
 
     BootstrapDataH2 bootstrapDataH2;
     @BeforeEach
     void setUp() {
-        csvService = new BeerCsvServiceImpl();
+        //csvService = new BeerCsvServiceImpl();
         bootstrapDataH2 = new BootstrapDataH2(beerRepository, customerRepository, csvService);
     }
     @Test
